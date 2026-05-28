@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the paper below."
+title: "End-to-End Compression for Tabular Foundation Models"
+authors:
+  - family-names: "Zabergja"
+    given-names: "Guri"
+  - family-names: "Kamel"
+    given-names: "Rafiq"
+  - family-names: "Kadra"
+    given-names: "Arlind"
+  - family-names: "Frey"
+    given-names: "Christian M. M."
+  - family-names: "Grabocka"
+    given-names: "Josif"
+year: 2026
+conference:
+  name: "International Conference on Machine Learning"
