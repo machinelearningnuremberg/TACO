@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/python-3.9--3.12-blue)
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD--3--Clause-green.svg)](LICENSE)
-[![Paper](https://img.shields.io/badge/arXiv-2602.05649-b31b1b?logo=arxiv&style=flat-square)](https://arxiv.org/abs/2602.05649)
+[![Paper](https://img.shields.io/badge/OpenReview-84mfkGDxYh-8c1b13?logo=openreview&style=flat-square)](https://openreview.net/pdf?id=84mfkGDxYh)
 
 Official repository for the paper
 **"End-to-End Compression for Tabular Foundation Models"**.
@@ -22,17 +22,30 @@ loss in predictive performance.
 ### Prerequisites
 
 - Python 3.9-3.12
-- [uv](https://github.com/astral-sh/uv) installed
 
 ### Installation
 
-Clone the repository:
+The distribution is named `tabpfn-taco`, while its Python import package is
+named `taco`.
+
+Install from a local clone with pip:
 
 ```bash
 git clone https://github.com/machinelearningnuremberg/TACO.git
 cd TACO
+python -m pip install .
+```
 
-# Install dependencies
+To work on the source code, install it in editable mode:
+
+```bash
+python -m pip install -e .
+```
+
+Alternatively, use [uv](https://docs.astral.sh/uv/), which installs the project
+in editable mode using the checked-in lockfile:
+
+```bash
 uv sync
 ```
 
@@ -58,7 +71,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 clf_taco = TACOClassifier(
     use_compressor=True,
     row_compression_percentage=4,
-    fit_mode="fit_with_preprocessors",
+    fit_mode="fit_preprocessors",
 )
 
 clf_taco.fit(X_train, y_train)
@@ -72,7 +85,7 @@ print("TabPFN-TACO Accuracy:", accuracy_score(y_test, predictions))
 # TabPFN-POT without compression
 clf_pot = TACOClassifier(
     use_compressor=False,
-    fit_mode="fit_with_preprocessors",
+    fit_mode="fit_preprocessors",
 )
 
 clf_pot.fit(X_train, y_train)
@@ -102,6 +115,12 @@ configurations provided in:
 - `scripts/train_stage1_pot.sh`
 
 Install the training extras before running these scripts:
+
+```bash
+python -m pip install -e ".[train]"
+```
+
+Or with uv:
 
 ```bash
 uv sync --extra train
@@ -146,9 +165,10 @@ If you use this repository, please cite:
 
 ```bibtex
 @inproceedings{zabergja2026endtoend,
-  title = {End-to-End Compression for Tabular Foundation Models},
-  author = {Zab{\"e}rgja, Guri and Kamel, Rafiq and Kadra, Arlind and Frey, Christian M. M. and Grabocka, Josif},
-  booktitle = {International Conference on Machine Learning},
-  year = {2026},
+    title={End-to-End Compression for Tabular Foundation Models},
+    author={Guri Zab{\"e}rgja and Rafiq Kamel and Arlind Kadra and Christian Frey and Josif Grabocka},
+    booktitle={Forty-third International Conference on Machine Learning},
+    year={2026},
+    url={https://openreview.net/forum?id=84mfkGDxYh}
 }
 ```

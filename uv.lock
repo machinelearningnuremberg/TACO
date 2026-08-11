@@ -1698,7 +1698,7 @@ wheels = [
 ]
 
 [[package]]
-name = "taco"
+name = "tabpfn-taco"
 source = { editable = "." }
 dependencies = [
     { name = "einops" },

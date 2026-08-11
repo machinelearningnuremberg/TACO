@@ -1,5 +1,5 @@
 [project]
-name = "TACO"
+name = "tabpfn-taco"
 dynamic = ["version"]
 description = "TACO: End-to-End Compression for Tabular Foundation Models"
 readme = "README.md"
@@ -26,6 +26,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
+
 dependencies = [
     "torch>=2.2,<3",  # to enjoy Flash Attention v2
     "scikit-learn>=1.3.0,<1.7",
@@ -47,6 +48,11 @@ train = [
     "xgboost",
 ]
 
+[project.urls]
+Homepage = "https://github.com/machinelearningnuremberg/TACO"
+Repository = "https://github.com/machinelearningnuremberg/TACO"
+Issues = "https://github.com/machinelearningnuremberg/TACO/issues"
+
 [build-system]
 requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
@@ -56,7 +62,17 @@ path = "src/taco/__about__.py"
 
 
 [tool.hatch.build.targets.sdist]
-only-include = ["src/taco", "LICENSE", "LICENSES", "THIRD_PARTY_NOTICES.md", "CITATION.cff", "README.md"]
+only-include = [
+    "src/taco",
+    "tests",
+    "examples",
+    "scripts",
+    "LICENSE",
+    "LICENSES",
+    "THIRD_PARTY_NOTICES.md",
+    "CITATION.cff",
+    "README.md",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/taco"]

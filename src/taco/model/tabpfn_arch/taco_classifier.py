@@ -38,35 +38,43 @@ class TACOClassifier(BaseTabPFNClassifier):
         **kwargs: Any,
     ):
         super().__init__(device=device, **kwargs)
-        self._use_compressor = use_compressor
-        self._row_compression_percentage = row_compression_percentage
-        self._checkpoint_path = checkpoint_path
-        self._checkpoint_repo_id = checkpoint_repo_id
-        self._checkpoint_filename = checkpoint_filename
-        self._checkpoint_revision = checkpoint_revision
-        self._local_files_only = local_files_only
-        self._wrapper_kwargs = wrapper_kwargs or {}
-        self._rcp_sampling = rcp_sampling
-        self._new_tabpfn_config = new_tabpfn_config
-        self._max_chunk_size = max_chunk_size
+        self.use_compressor = use_compressor
+        self.row_compression_percentage = row_compression_percentage
+        self.checkpoint_path = checkpoint_path
+        self.checkpoint_repo_id = checkpoint_repo_id
+        self.checkpoint_filename = checkpoint_filename
+        self.checkpoint_revision = checkpoint_revision
+        self.local_files_only = local_files_only
+        self.wrapper_kwargs = wrapper_kwargs
+        self.rcp_sampling = rcp_sampling
+        self.new_tabpfn_config = new_tabpfn_config
+        self.max_chunk_size = max_chunk_size
+
+    @classmethod
+    def _get_param_names(cls) -> list[str]:
+        """Expose both TACO-specific and inherited estimator parameters."""
+        return sorted(
+            set(super()._get_param_names())
+            | set(BaseTabPFNClassifier._get_param_names())
+        )
 
     def _resolve_checkpoint_path(self) -> str:
-        if self._checkpoint_path not in (None, "", "auto"):
-            return str(self._checkpoint_path)
+        if self.checkpoint_path not in (None, "", "auto"):
+            return str(self.checkpoint_path)
 
         repo_id = (
-            self._checkpoint_repo_id
+            self.checkpoint_repo_id
             or os.environ.get("TACO_CHECKPOINT_REPO_ID")
             or DEFAULT_CHECKPOINT_REPO_ID
         )
-        filename = self._checkpoint_filename or (
-            TACO_CHECKPOINT_FILENAME if self._use_compressor else POT_CHECKPOINT_FILENAME
+        filename = self.checkpoint_filename or (
+            TACO_CHECKPOINT_FILENAME if self.use_compressor else POT_CHECKPOINT_FILENAME
         )
         return hf_hub_download(
             repo_id=repo_id,
             filename=filename,
-            revision=self._checkpoint_revision,
-            local_files_only=self._local_files_only,
+            revision=self.checkpoint_revision,
+            local_files_only=self.local_files_only,
         )
 
     def _initialize_model_variables(self):
@@ -83,13 +91,13 @@ class TACOClassifier(BaseTabPFNClassifier):
         checkpoint_path = self._resolve_checkpoint_path()
 
         self.model_ = TACOShim(
-            use_compressor=self._use_compressor,
-            row_compression_percentage=self._row_compression_percentage,
+            use_compressor=self.use_compressor,
+            row_compression_percentage=self.row_compression_percentage,
             checkpoint_path=checkpoint_path,
-            rcp_sampling=self._rcp_sampling,
-            new_tabpfn_config=self._new_tabpfn_config,
-            max_chunk_size=self._max_chunk_size,
-            **self._wrapper_kwargs,
+            rcp_sampling=self.rcp_sampling,
+            new_tabpfn_config=self.new_tabpfn_config,
+            max_chunk_size=self.max_chunk_size,
+            **(self.wrapper_kwargs or {}),
         ).to(self.device_)
         self.config_ = self.model_.core.tabpfn_config
         self.model_.cache_trainset_representation = (self.fit_mode == "fit_with_cache")
