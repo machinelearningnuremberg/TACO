@@ -32,7 +32,7 @@ named `taco`.
 Install the latest release from PyPI:
 
 ```bash
-python -m pip install tabpfn-taco
+pip install tabpfn-taco
 ```
 
 For development, clone the repository and install it in editable mode:
@@ -40,7 +40,7 @@ For development, clone the repository and install it in editable mode:
 ```bash
 git clone https://github.com/machinelearningnuremberg/TACO.git
 cd TACO
-python -m pip install -e .
+pip install -e .
 ```
 
 Alternatively, use [uv](https://docs.astral.sh/uv/), which installs the project
@@ -118,7 +118,7 @@ configurations provided in:
 Install the training extras before running these scripts:
 
 ```bash
-python -m pip install -e ".[train]"
+pip install -e ".[train]"
 ```
 
 Or with uv:
