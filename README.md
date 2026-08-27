@@ -1,6 +1,7 @@
 # TACO 🌮
 
 ![Python](https://img.shields.io/badge/python-3.9--3.12-blue)
+[![PyPI](https://img.shields.io/pypi/v/tabpfn-taco)](https://pypi.org/project/tabpfn-taco/)
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD--3--Clause-green.svg)](LICENSE)
 [![Paper](https://img.shields.io/badge/OpenReview-84mfkGDxYh-8c1b13?logo=openreview&style=flat-square)](https://openreview.net/pdf?id=84mfkGDxYh)
 
@@ -28,17 +29,17 @@ loss in predictive performance.
 The distribution is named `tabpfn-taco`, while its Python import package is
 named `taco`.
 
-Install from a local clone with pip:
+Install the latest release from PyPI:
+
+```bash
+python -m pip install tabpfn-taco
+```
+
+For development, clone the repository and install it in editable mode:
 
 ```bash
 git clone https://github.com/machinelearningnuremberg/TACO.git
 cd TACO
-python -m pip install .
-```
-
-To work on the source code, install it in editable mode:
-
-```bash
 python -m pip install -e .
 ```
 
